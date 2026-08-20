@@ -12,6 +12,22 @@
 .mobile-menu nav {
   width: 100%;
 }
+.mobile-menu__close {
+  position: absolute;
+  top: 20px;
+  right: var(--edge);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--color-offwhite);
+}
+
+.mobile-menu__close:hover {
+  color: var(--color-red-bright);
+}
 
 .mobile-menu ul {
   display: flex;

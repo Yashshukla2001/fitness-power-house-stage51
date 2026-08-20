@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { X } from 'lucide-react';
 import { navLinks, getWhatsAppLink } from '../../config/business';
 import './MobileMenu.css';
 
@@ -64,6 +65,16 @@ export function MobileMenu({ open, onClose, reducedMotion }: MobileMenuProps) {
       aria-label="Site navigation"
       style={{ visibility: open ? 'visible' : 'hidden' }}
     >
+          <button
+        type="button"
+        className="mobile-menu__close"
+        onClick={onClose}
+        aria-label="Close menu"
+      >
+        <X size={22} strokeWidth={1.75} />
+      </button>
+
+      
       <nav aria-label="Mobile primary">
         <ul>
           {navLinks.map((link) => (
