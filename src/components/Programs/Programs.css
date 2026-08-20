@@ -1,0 +1,225 @@
+/* ==========================================================================
+   PROGRAMS — editorial list with a sticky, hover-crossfade image preview.
+   Different rhythm again: no photography grid, no giant headline — a
+   spec-sheet style list is the signature here.
+   ========================================================================== */
+
+.programs {
+  position: relative;
+  background: var(--color-black);
+  padding: clamp(64px, 12vh, 120px) var(--edge);
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+/* ---- header (shares rhythm with The Gym's header) ---- */
+
+.programs__header {
+  max-width: 640px;
+  margin-bottom: clamp(40px, 7vh, 72px);
+}
+
+.programs__eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.programs__index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-offwhite-45);
+}
+
+.programs__eyebrow-line {
+  width: 32px;
+  height: 2px;
+  background: var(--color-red-bright);
+}
+
+.programs__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-70);
+}
+
+.programs__headline {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(34px, 5.4vw, 58px);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: clamp(18px, 3vh, 26px);
+}
+
+.programs__paragraph {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-offwhite-70);
+  max-width: 46ch;
+}
+
+/* ---- body: list + sticky preview ---- */
+
+.programs__body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+.programs__list {
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.programs__item {
+  border-bottom: 1px solid var(--color-graphite-line);
+}
+
+.programs__row {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(16px, 3vw, 32px);
+  padding: clamp(20px, 3.2vh, 30px) 4px;
+  transition: background-color 0.35s var(--ease-out);
+}
+
+.programs__row:hover,
+.programs__row:focus-visible {
+  background: rgba(242, 237, 228, 0.03);
+}
+
+.programs__row-index {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-red-bright);
+  width: 28px;
+  margin-top: 8px;
+  display: inline-block;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.programs__row:hover .programs__row-index,
+.programs__row:focus-visible .programs__row-index {
+  transform: scale(1.2);
+}
+
+.programs__row-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.programs__row-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 3.2vw, 32px);
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  display: inline-block;
+  transition:
+    color 0.3s var(--ease-out),
+    transform 0.35s var(--ease-out);
+}
+
+.programs__row:hover .programs__row-title,
+.programs__row:focus-visible .programs__row-title {
+  color: var(--color-red-bright);
+  transform: translateX(8px);
+}
+
+.programs__row-description {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--color-offwhite-45);
+  max-width: 52ch;
+}
+
+.programs__row-arrow {
+  flex-shrink: 0;
+  margin-top: 6px;
+  color: var(--color-offwhite-45);
+  transform: rotate(0deg);
+  transition:
+    transform 0.35s var(--ease-out),
+    color 0.3s var(--ease-out);
+}
+
+.programs__row:hover .programs__row-arrow,
+.programs__row:focus-visible .programs__row-arrow {
+  color: var(--color-offwhite);
+  transform: rotate(45deg);
+}
+
+/* ---- preview (desktop only) ---- */
+
+.programs__preview {
+  display: none;
+}
+
+.programs__preview-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-graphite);
+}
+
+.programs__preview-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
+  color: transparent;
+  text-indent: -9999px;
+}
+
+/* ==========================================================================
+   DESKTOP: list + sticky preview side by side
+   ========================================================================== */
+
+@media (min-width: 900px) {
+  .programs__body {
+    grid-template-columns: 1.5fr 1fr;
+    align-items: start;
+    gap: clamp(40px, 6vw, 80px);
+  }
+
+  .programs__row-description {
+    opacity: 0;
+    max-height: 0;
+    transition:
+      opacity 0.3s var(--ease-out),
+      max-height 0.3s var(--ease-out);
+  }
+
+  .programs__row:hover .programs__row-description,
+  .programs__row:focus-visible .programs__row-description {
+    opacity: 1;
+    max-height: 60px;
+  }
+
+  .programs__preview {
+    display: block;
+    position: sticky;
+    /* Nav is now a floating fixed pill, not a sticky bar that pushes
+       content — this is just a comfortable fixed offset from the
+       viewport top, clear of the floating pill. */
+    top: 92px;
+  }
+}

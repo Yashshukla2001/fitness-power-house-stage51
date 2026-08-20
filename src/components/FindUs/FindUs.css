@@ -1,0 +1,312 @@
+/* ==========================================================================
+   FIND US — full-bleed map with an angled charcoal panel (same clip-path
+   language as the Hero's editorial panel, deliberately echoed here as a
+   structural bookend), plus a floating elevated form card layered on top.
+   Not a plain two-column div split — genuine depth and layering.
+   ========================================================================== */
+
+.find-us {
+  position: relative;
+  background: var(--color-black);
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.find-us__stage {
+  position: relative;
+  min-height: 620px;
+  overflow: hidden;
+}
+
+/* ---- full-bleed map background ---- */
+
+.find-us__map-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.find-us__map-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(0.4) contrast(1.05) brightness(0.85);
+}
+
+.find-us__map-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(5, 5, 5, 0.55) 0%, rgba(5, 5, 5, 0.1) 55%, rgba(5, 5, 5, 0) 75%);
+  pointer-events: none;
+}
+
+/* ---- angled panel (echoes Hero's PANEL_CLIP) ---- */
+
+.find-us__panel {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  min-height: 620px;
+  width: 100%;
+  padding: clamp(48px, 8vh, 80px) var(--edge);
+  background: var(--color-charcoal);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.find-us__eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: clamp(20px, 3vh, 28px);
+}
+
+.find-us__index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-offwhite-45);
+}
+
+.find-us__eyebrow-line {
+  width: 32px;
+  height: 2px;
+  background: var(--color-red-bright);
+}
+
+.find-us__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-70);
+}
+
+.find-us__headline {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 4.6vw, 50px);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: clamp(18px, 2.6vh, 24px);
+  max-width: 380px;
+}
+
+.find-us__address {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--color-offwhite-70);
+  margin-bottom: 18px;
+  max-width: 340px;
+}
+
+.find-us__address svg {
+  flex-shrink: 0;
+  color: var(--color-red-bright);
+  margin-top: 2px;
+}
+
+.find-us__paragraph {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-offwhite-45);
+  max-width: 320px;
+  margin-bottom: clamp(24px, 3.4vh, 32px);
+}
+
+.find-us__directions {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  padding: 14px 22px;
+  border: 1px solid var(--color-offwhite);
+  color: var(--color-offwhite);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  transition:
+    background-color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out);
+}
+
+.find-us__directions:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+}
+
+/* ---- floating elevated form card ---- */
+
+.find-us__form-float {
+  position: relative;
+  z-index: 3;
+  margin: 0 var(--edge) clamp(32px, 5vh, 48px);
+  padding: clamp(26px, 3.6vw, 34px);
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.find-us__form-heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-45);
+  margin-bottom: 20px;
+}
+
+.find-us__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.find-us__field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.find-us__field label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--color-offwhite-45);
+}
+
+.find-us__field input,
+.find-us__field textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1px solid var(--color-graphite-line);
+  background: var(--color-black);
+  color: var(--color-offwhite);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  resize: vertical;
+  transition: border-color 0.3s var(--ease-out);
+}
+
+.find-us__field input:focus-visible,
+.find-us__field textarea:focus-visible {
+  border-color: var(--color-red-bright);
+  outline: none;
+}
+
+.find-us__error {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-red-bright);
+}
+
+.find-us__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border: 1px solid var(--color-offwhite);
+  background: var(--color-offwhite);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.09em;
+  transition:
+    background-color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out),
+    transform 0.2s var(--ease-out);
+}
+
+.find-us__submit:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+  color: var(--color-offwhite);
+  transform: translateY(-2px);
+}
+
+.find-us__submit:active {
+  transform: translateY(0);
+}
+
+.find-us__submit-note {
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-offwhite-45);
+}
+
+/* ==========================================================================
+   MOBILE / TABLET: stacked flow, no clip-path angle (matches Hero's own
+   mobile fallback — the diagonal cut is a desktop-only flourish)
+   ========================================================================== */
+
+@media (max-width: 899px) {
+  .find-us__stage {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .find-us__map-bg {
+    position: relative;
+    height: 280px;
+  }
+
+  .find-us__map-scrim {
+    background: linear-gradient(180deg, rgba(5, 5, 5, 0) 60%, rgba(5, 5, 5, 0.5) 100%);
+  }
+
+  .find-us__panel {
+    height: auto;
+    min-height: 0;
+    clip-path: none !important;
+    padding: clamp(36px, 6vh, 56px) var(--edge) clamp(28px, 4vh, 40px);
+  }
+
+  .find-us__headline,
+  .find-us__address,
+  .find-us__paragraph {
+    max-width: none;
+  }
+
+  .find-us__form-float {
+    margin: 0 var(--edge) clamp(40px, 6vh, 56px);
+    box-shadow: none;
+  }
+}
+
+/* ==========================================================================
+   DESKTOP: angled panel over the full-bleed map, form floats bottom-right
+   ========================================================================== */
+
+@media (min-width: 900px) {
+  .find-us__panel {
+    position: absolute;
+    inset: 0;
+    width: 62%;
+    /* Must match PANEL_CLIP in FindUs.tsx. */
+    clip-path: polygon(0 0, 58% 0, 44% 100%, 0 100%);
+  }
+
+  .find-us__form-float {
+    position: absolute;
+    right: var(--edge);
+    bottom: clamp(32px, 6vh, 56px);
+    width: min(380px, 34vw);
+    margin: 0;
+  }
+}

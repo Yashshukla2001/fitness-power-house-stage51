@@ -1,0 +1,370 @@
+/* ==========================================================================
+   ABOUT — overlapping layered composition (one of three directions
+   presented and approved before building): a large photo sized to its
+   own real aspect ratio, a floating stat card hanging off its corner,
+   and the text panel overlapping onto the photo's edge with its own
+   solid background — genuine depth instead of two flat side-by-side
+   blocks with empty space around them.
+   ========================================================================== */
+
+.about {
+  position: relative;
+  background: var(--color-black);
+  padding: clamp(64px, 12vh, 120px) var(--edge);
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.about__composition {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---- large photo, sized to its own real aspect ratio (854×538) so
+   nothing needs to be cropped ---- */
+
+.about__photo-large {
+  position: relative;
+  z-index: 1;
+  width: min(480px, 42vw);
+  aspect-ratio: 854 / 950;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--color-graphite);
+  border: 1px solid var(--color-graphite-line);
+  perspective: 900px;
+}
+
+.about__photo-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  color: transparent;
+  will-change: transform;
+}
+
+.about__photo-credit {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  color: var(--color-offwhite-70);
+  background: rgba(5, 5, 5, 0.6);
+  padding: 3px 7px;
+}
+
+/* ---- floating stat card, hanging off the photo's bottom-left corner ---- */
+
+.about__stat-card {
+  position: absolute;
+  left: clamp(-16px, -2vw, -24px);
+  bottom: clamp(-16px, -2vw, -24px);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px 22px;
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* ---- content panel, overlapping onto the photo's right edge ---- */
+
+.about__content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-width: 0;
+  max-width: 620px;
+  margin-left: clamp(-64px, -5vw, -96px);
+  padding: clamp(32px, 4vw, 48px) clamp(28px, 3.6vw, 44px);
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+  box-shadow: -24px 0 60px rgba(0, 0, 0, 0.4);
+}
+
+.about__eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.about__index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-offwhite-45);
+}
+
+.about__eyebrow-line {
+  width: 32px;
+  height: 2px;
+  background: var(--color-red-bright);
+}
+
+.about__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-70);
+}
+
+.about__headline {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(34px, 5.4vw, 58px);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: clamp(18px, 3vh, 26px);
+}
+
+.about__paragraph {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-offwhite-70);
+  margin-bottom: 22px;
+}
+
+.about__stat-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(26px, 3.4vw, 32px);
+  color: var(--color-red-bright);
+  line-height: 1;
+}
+
+.about__stat-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: var(--color-offwhite-45);
+  white-space: nowrap;
+}
+
+.about__quote {
+  margin: 0 0 26px;
+  padding-left: 18px;
+  border-left: 2px solid var(--color-red-bright);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(17px, 2.2vw, 21px);
+  line-height: 1.45;
+  color: var(--color-offwhite);
+}
+
+.about__owner {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-70);
+  margin-bottom: 4px;
+}
+
+.about__signature {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-offwhite-45);
+  margin-bottom: 28px;
+}
+
+.about__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.about__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 24px;
+  border: 1px solid var(--color-offwhite);
+  background: var(--color-offwhite);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.09em;
+  transition:
+    background-color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out);
+}
+
+.about__cta:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+  color: var(--color-offwhite);
+}
+
+.about__instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--color-offwhite-70);
+  transition: color 0.3s var(--ease-out);
+}
+
+.about__instagram:hover {
+  color: var(--color-red-bright);
+}
+
+.about__read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--color-offwhite-45);
+  padding-top: 14px;
+  border-top: 1px solid var(--color-graphite-line);
+  width: 100%;
+  transition: color 0.3s var(--ease-out);
+}
+
+.about__read-more:hover {
+  color: var(--color-offwhite);
+}
+
+.about__read-more-icon {
+  transition: transform 0.35s var(--ease-out);
+}
+
+.about__read-more-icon--open {
+  transform: rotate(180deg);
+}
+
+/* ---- expandable full story ---- */
+
+.about__story-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease-out);
+}
+
+.about__story-wrap--open {
+  grid-template-rows: 1fr;
+}
+
+.about__story-inner {
+  overflow: hidden;
+}
+
+.about__story-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: clamp(40px, 6vh, 64px);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(28px, 4vh, 40px);
+}
+
+.about__story-block {
+  padding-top: clamp(28px, 4vh, 40px);
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.about__story-heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(18px, 2.4vw, 22px);
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: 16px;
+}
+
+.about__story-paragraph {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-offwhite-70);
+  max-width: 68ch;
+  margin-bottom: 14px;
+}
+
+.about__story-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   DESKTOP: the overlap technique needs real horizontal room to read as
+   intentional depth rather than cramped collision — enabled from 900px
+   up. Below that, everything stacks cleanly instead.
+   ========================================================================== */
+
+@media (min-width: 900px) {
+  .about__story-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .about__story-block {
+    padding-top: 0;
+    border-top: none;
+    padding-right: 20px;
+    border-right: 1px solid var(--color-graphite-line);
+  }
+
+  .about__story-block:last-child {
+    border-right: none;
+  }
+}
+
+/* ==========================================================================
+   MOBILE / TABLET: below 900px there isn't enough width for the overlap
+   to read as intentional — stack cleanly instead, photo full width on
+   top, stat card as an inline row (not floating), content below with no
+   negative margin or overlap shadow.
+   ========================================================================== */
+
+@media (max-width: 899px) {
+  .about__composition {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .about__photo-large {
+    width: 100%;
+  }
+
+  .about__stat-card {
+    position: static;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    width: fit-content;
+    margin-top: -1px;
+    box-shadow: none;
+  }
+
+  .about__content {
+    margin-left: 0;
+    max-width: none;
+    box-shadow: none;
+    border-top: none;
+  }
+}

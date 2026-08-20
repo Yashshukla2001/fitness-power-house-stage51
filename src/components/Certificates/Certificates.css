@@ -1,0 +1,333 @@
+/* ==========================================================================
+   CERTIFICATES & LICENSING — real scanned documents (NSDC trainer
+   certificate, Sapphire Fitness Academy CPT certificate, FSSAI
+   registration), presented as a staggered, dynamic composition rather
+   than a flat static grid: alternating vertical rhythm, large ghost
+   index numbers as background decoration, continuous idle float, and
+   3D mouse-tilt on each card.
+   ========================================================================== */
+
+.certificates {
+  position: relative;
+  background: var(--color-black);
+  padding: clamp(64px, 12vh, 120px) var(--edge);
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.certificates__header {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto clamp(56px, 8vh, 88px);
+  text-align: center;
+}
+
+.certificates__eyebrow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.certificates__index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-offwhite-45);
+}
+
+.certificates__eyebrow-line {
+  width: 32px;
+  height: 2px;
+  background: var(--color-red-bright);
+}
+
+.certificates__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-70);
+}
+
+.certificates__headline {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: clamp(16px, 2.6vh, 22px);
+}
+
+.certificates__paragraph {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-offwhite-70);
+  max-width: 46ch;
+  margin: 0 auto;
+}
+
+/* ---- grid + tilt cards: staggered vertical rhythm, not a flat row ---- */
+
+.certificates__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.certificates__tilt-wrap {
+  position: relative;
+  perspective: 800px;
+  animation: certFloat 5s ease-in-out infinite;
+}
+
+@keyframes certFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certificates__tilt-wrap {
+    animation: none;
+  }
+}
+
+.certificates__tilt-wrap:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.certificates__tilt-wrap:nth-child(2) {
+  animation-delay: 0.6s;
+  animation-duration: 5.6s;
+}
+
+.certificates__tilt-wrap:nth-child(3) {
+  animation-delay: 1.2s;
+  animation-duration: 4.7s;
+}
+
+/* Large ghost index number, sitting behind and above each card — a
+   background design element rather than the small inline "01" alone. */
+.certificates__tilt-wrap::before {
+  content: attr(data-ghost-index);
+  position: absolute;
+  top: -66px;
+  left: -4px;
+  z-index: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(48px, 6vw, 72px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-graphite-line);
+  pointer-events: none;
+}
+
+.certificates__card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 20px 24px;
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+  transform-style: preserve-3d;
+  will-change: transform;
+  text-align: center;
+  cursor: pointer;
+  font: inherit;
+  transition:
+    border-color 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+}
+
+.certificates__card:hover,
+.certificates__card:focus-visible {
+  border-color: var(--color-red-bright);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.certificates__card-index {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-offwhite-45);
+}
+
+.certificates__card-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-offwhite);
+  border: 1px solid var(--color-graphite-line);
+}
+
+.certificates__card-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  color: transparent;
+}
+
+.certificates__card-zoom {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(5, 5, 5, 0.75);
+  color: var(--color-offwhite);
+  animation: certZoomPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes certZoomPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .certificates__card-zoom {
+    animation: none;
+  }
+}
+
+.certificates__card-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+}
+
+.certificates__card-issuer {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--color-offwhite-45);
+  line-height: 1.5;
+}
+
+/* ---- lightbox ---- */
+
+.certificates__lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--edge);
+}
+
+.certificates__lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 5, 0.85);
+  border: none;
+  cursor: default;
+}
+
+.certificates__lightbox-content {
+  position: relative;
+  z-index: 1;
+  max-width: min(720px, 92vw);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+}
+
+.certificates__lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: rgba(5, 5, 5, 0.75);
+  color: var(--color-offwhite);
+}
+
+.certificates__lightbox-close:hover {
+  color: var(--color-red-bright);
+}
+
+.certificates__lightbox-image {
+  width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  background: var(--color-offwhite);
+}
+
+.certificates__lightbox-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 20px;
+}
+
+.certificates__lightbox-caption span:first-child {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+}
+
+.certificates__lightbox-caption span:last-child {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--color-offwhite-45);
+}
+
+@media (min-width: 780px) {
+  .certificates__grid {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+  }
+
+  /* Alternating vertical rhythm instead of a rigid flat row */
+  .certificates__tilt-wrap:nth-child(2) {
+    margin-top: 44px;
+  }
+
+  .certificates__tilt-wrap:nth-child(3) {
+    margin-top: 16px;
+  }
+}

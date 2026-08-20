@@ -1,0 +1,222 @@
+/* ==========================================================================
+   MEMBERSHIP — inclusions checklist + photo/CTA panel.
+   Deliberately no pricing table: real package data hasn't been supplied
+   yet, so this routes pricing questions to WhatsApp instead of inventing
+   numbers. The CTA card sits in normal flow below the photo, not overlaid
+   on top of it — kept simple and collision-safe.
+   ========================================================================== */
+
+.membership {
+  position: relative;
+  background: var(--color-black);
+  padding: clamp(64px, 12vh, 120px) var(--edge);
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.membership__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(40px, 6vh, 64px);
+}
+
+/* ---- content column ---- */
+
+.membership__content {
+  max-width: 560px;
+}
+
+.membership__eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.membership__index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-offwhite-45);
+}
+
+.membership__eyebrow-line {
+  width: 32px;
+  height: 2px;
+  background: var(--color-red-bright);
+}
+
+.membership__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-70);
+}
+
+.membership__headline {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(34px, 5.4vw, 58px);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: clamp(18px, 3vh, 26px);
+}
+
+.membership__paragraph {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-offwhite-70);
+  max-width: 48ch;
+  margin-bottom: clamp(28px, 4.5vh, 44px);
+}
+
+.membership__list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.membership__list-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-graphite-line);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-offwhite);
+}
+
+.membership__list-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.membership__list-icon {
+  flex-shrink: 0;
+  color: var(--color-red-bright);
+}
+
+/* ---- visual column ---- */
+
+.membership__visual {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.membership__visual-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-graphite);
+  aspect-ratio: 4 / 3;
+}
+
+.membership__visual-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  color: transparent;
+  text-indent: -9999px;
+  animation: membershipKenBurns 14s ease-in-out infinite;
+}
+
+@keyframes membershipKenBurns {
+  0%,
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.06) translate(-1%, -1%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .membership__visual-image {
+    animation: none;
+  }
+}
+
+.membership__visual-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0) 55%, rgba(5, 5, 5, 0.4) 100%);
+  pointer-events: none;
+}
+
+.membership__cta-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: clamp(20px, 3vh, 28px);
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+}
+
+.membership__cta-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-45);
+}
+
+.membership__cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 24px;
+  border: 1px solid var(--color-offwhite);
+  background: var(--color-offwhite);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.09em;
+  white-space: nowrap;
+  transition:
+    background-color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out),
+    gap 0.35s var(--ease-out);
+}
+
+.membership__cta-button:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+  color: var(--color-offwhite);
+  gap: 14px;
+}
+
+/* ==========================================================================
+   DESKTOP: content + visual side by side
+   ========================================================================== */
+
+@media (min-width: 900px) {
+  .membership__grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: clamp(48px, 6vw, 88px);
+  }
+}
+
+@media (max-width: 520px) {
+  .membership__cta-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .membership__cta-button {
+    justify-content: center;
+  }
+}

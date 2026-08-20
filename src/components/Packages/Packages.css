@@ -1,0 +1,291 @@
+/* ==========================================================================
+   PACKAGES — demo pricing cards. Hover-lift + entrance stagger, and the
+   "popular" card gets a slow, subtle pulsing glow so the grid doesn't go
+   fully static once its entrance finishes.
+   ========================================================================== */
+
+.packages {
+  position: relative;
+  background: var(--color-black);
+  padding: clamp(64px, 12vh, 120px) var(--edge);
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.packages__header {
+  max-width: 640px;
+  margin: 0 auto clamp(48px, 7vh, 72px);
+  text-align: center;
+}
+
+.packages__eyebrow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.packages__index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-offwhite-45);
+}
+
+.packages__eyebrow-line {
+  width: 32px;
+  height: 2px;
+  background: var(--color-red-bright);
+}
+
+.packages__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-70);
+}
+
+.packages__headline {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: clamp(16px, 2.6vh, 22px);
+}
+
+.packages__paragraph {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--color-offwhite-45);
+  max-width: 46ch;
+  margin: 0 auto 26px;
+}
+
+.packages__tabs {
+  display: inline-flex;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--color-graphite-line);
+}
+
+.packages__tab {
+  padding: 9px 18px;
+  background: transparent;
+  color: var(--color-offwhite-70);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  transition:
+    background-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out);
+}
+
+.packages__tab--active {
+  background: var(--color-red-bright);
+  color: var(--color-offwhite);
+}
+
+/* ---- grid ---- */
+
+.packages__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.packages__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(28px, 3.4vw, 36px);
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+  transition:
+    transform 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out),
+    box-shadow 0.4s var(--ease-out);
+}
+
+.packages__card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-offwhite-45);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.packages__card--popular {
+  border-color: var(--color-red-bright);
+  animation: packagesGlowPulse 3.2s ease-in-out infinite;
+}
+
+.packages__card--popular:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-red-bright);
+}
+
+@keyframes packagesGlowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(194, 42, 42, 0);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(194, 42, 42, 0.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .packages__card--popular {
+    animation: none;
+  }
+}
+
+.packages__popular-badge {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--color-red-bright);
+  border: 1px solid var(--color-red-bright);
+  padding: 3px 8px;
+  margin-bottom: 16px;
+}
+
+.packages__card-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: 14px;
+  margin-top: 4px;
+}
+
+.packages__card-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.packages__card-price-number {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(30px, 4vw, 38px);
+  color: var(--color-offwhite);
+  transition: color 0.3s var(--ease-out);
+}
+
+.packages__card:hover .packages__card-price-number {
+  color: var(--color-red-bright);
+}
+
+.packages__card-price-period {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-offwhite-45);
+}
+
+.packages__card-note {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--color-red-bright);
+  margin-bottom: 8px;
+}
+
+.packages__card-description {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--color-offwhite-70);
+  margin-bottom: 22px;
+}
+
+.packages__card-features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 26px;
+  flex: 1;
+}
+
+.packages__card-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--color-offwhite);
+}
+
+.packages__card-check {
+  flex-shrink: 0;
+  color: var(--color-red-bright);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.packages__card-features li:hover .packages__card-check {
+  transform: scale(1.25) rotate(-8deg);
+}
+
+.packages__card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border: 1px solid var(--color-offwhite);
+  color: var(--color-offwhite);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  transition:
+    background-color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out);
+}
+
+.packages__card-cta:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+}
+
+.packages__card--popular .packages__card-cta {
+  background: var(--color-offwhite);
+  color: var(--color-black);
+}
+
+.packages__card--popular .packages__card-cta:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+  color: var(--color-offwhite);
+}
+
+@media (min-width: 640px) {
+  .packages__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1080px) {
+  .packages__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .packages__card--popular {
+    transform: translateY(-16px);
+  }
+
+  .packages__card--popular:hover {
+    transform: translateY(-22px);
+  }
+}

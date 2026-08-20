@@ -1,0 +1,307 @@
+/* ==========================================================================
+   BMI CALCULATOR — same centered-header + bordered-card language as Find
+   Your Program, so the two utility tools read as a matched pair.
+   ========================================================================== */
+
+.bmi {
+  --bmi-pad: clamp(24px, 4vw, 40px);
+  position: relative;
+  background: var(--color-black);
+  padding: clamp(64px, 12vh, 120px) var(--edge);
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.bmi__header {
+  max-width: 640px;
+  margin: 0 auto clamp(40px, 6vh, 64px);
+  text-align: center;
+}
+
+.bmi__eyebrow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.bmi__index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-offwhite-45);
+}
+
+.bmi__eyebrow-line {
+  width: 32px;
+  height: 2px;
+  background: var(--color-red-bright);
+}
+
+.bmi__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-70);
+}
+
+.bmi__headline {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: clamp(16px, 2.6vh, 22px);
+}
+
+.bmi__paragraph {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-offwhite-70);
+  max-width: 44ch;
+  margin: 0 auto;
+}
+
+/* ---- card ---- */
+
+.bmi__card {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: var(--bmi-pad);
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+}
+
+.bmi__unit-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: clamp(20px, 3vh, 28px);
+}
+
+.bmi__unit-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--color-graphite-line);
+  background: transparent;
+  color: var(--color-offwhite-45);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  transition:
+    border-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    background-color 0.3s var(--ease-out);
+}
+
+.bmi__unit-btn--active {
+  border-color: var(--color-red-bright);
+  background: rgba(194, 42, 42, 0.08);
+  color: var(--color-offwhite);
+}
+
+/* ---- form ---- */
+
+.bmi__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.bmi__field-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.bmi__field {
+  flex: 1;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bmi__field label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--color-offwhite-45);
+}
+
+.bmi__field input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-graphite-line);
+  background: var(--color-black);
+  color: var(--color-offwhite);
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: border-color 0.3s var(--ease-out);
+}
+
+.bmi__field input:focus-visible {
+  border-color: var(--color-red-bright);
+  outline: none;
+}
+
+.bmi__split-inputs {
+  display: flex;
+  gap: 8px;
+}
+
+.bmi__error {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: var(--color-red-bright);
+}
+
+.bmi__submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 24px;
+  border: 1px solid var(--color-offwhite);
+  background: var(--color-offwhite);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.09em;
+  transition:
+    background-color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out),
+    gap 0.35s var(--ease-out);
+}
+
+.bmi__submit:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+  color: var(--color-offwhite);
+  gap: 14px;
+}
+
+/* ---- result ---- */
+
+.bmi__result {
+  animation: bmiResultIn 0.4s var(--ease-out);
+}
+
+@keyframes bmiResultIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bmi__result {
+    animation: none;
+  }
+}
+
+.bmi__result-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-45);
+  margin-bottom: 14px;
+}
+
+.bmi__result-value {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.bmi__result-number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(48px, 8vw, 64px);
+  line-height: 1;
+  color: var(--color-offwhite);
+}
+
+.bmi__result-category {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--color-red-bright);
+}
+
+.bmi__disclaimer {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--color-offwhite-45);
+  padding-bottom: clamp(18px, 3vh, 26px);
+  margin-bottom: clamp(18px, 3vh, 26px);
+  border-bottom: 1px solid var(--color-graphite-line);
+}
+
+.bmi__result-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.bmi__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 24px;
+  border: 1px solid var(--color-offwhite);
+  background: var(--color-offwhite);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.09em;
+  white-space: nowrap;
+  transition:
+    background-color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out),
+    gap 0.35s var(--ease-out);
+}
+
+.bmi__cta:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+  color: var(--color-offwhite);
+  gap: 14px;
+}
+
+.bmi__recalculate {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--color-offwhite-45);
+  transition: color 0.3s var(--ease-out);
+}
+
+.bmi__recalculate:hover {
+  color: var(--color-offwhite);
+}
+
+@media (min-width: 480px) {
+  .bmi__result-actions {
+    flex-direction: row;
+    align-items: center;
+  }
+}

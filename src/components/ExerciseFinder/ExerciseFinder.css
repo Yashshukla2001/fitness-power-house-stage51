@@ -1,0 +1,281 @@
+/* ==========================================================================
+   EXERCISE FINDER — search + body-part filter chips over a bordered card,
+   matching the Find Your Program / BMI Calculator interactive-tool
+   language so the three read as a matched set.
+   ========================================================================== */
+
+.exercise-finder {
+  --ef-pad: clamp(24px, 4vw, 40px);
+  position: relative;
+  background: var(--color-black);
+  padding: clamp(64px, 12vh, 120px) var(--edge);
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.exercise-finder__header {
+  max-width: 640px;
+  margin: 0 auto clamp(40px, 6vh, 64px);
+  text-align: center;
+}
+
+.exercise-finder__eyebrow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.exercise-finder__index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-offwhite-45);
+}
+
+.exercise-finder__eyebrow-line {
+  width: 32px;
+  height: 2px;
+  background: var(--color-red-bright);
+}
+
+.exercise-finder__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-offwhite-70);
+}
+
+.exercise-finder__headline {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  margin-bottom: clamp(16px, 2.6vh, 22px);
+}
+
+.exercise-finder__paragraph {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-offwhite-70);
+  max-width: 46ch;
+  margin: 0 auto;
+}
+
+/* ---- card ---- */
+
+.exercise-finder__card {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: var(--ef-pad);
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+}
+
+.exercise-finder__search-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border: 1px solid var(--color-graphite-line);
+  background: var(--color-black);
+  margin-bottom: 18px;
+  transition: border-color 0.3s var(--ease-out);
+}
+
+.exercise-finder__search-row:focus-within {
+  border-color: var(--color-red-bright);
+}
+
+.exercise-finder__search-icon {
+  flex-shrink: 0;
+  color: var(--color-offwhite-45);
+}
+
+.exercise-finder__search-input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: var(--color-offwhite);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.exercise-finder__search-input::placeholder {
+  color: var(--color-offwhite-45);
+}
+
+.exercise-finder__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.exercise-finder__filter {
+  padding: 8px 14px;
+  border: 1px solid var(--color-graphite-line);
+  background: transparent;
+  color: var(--color-offwhite-70);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  transition:
+    border-color 0.3s var(--ease-out),
+    color 0.3s var(--ease-out),
+    background-color 0.3s var(--ease-out);
+}
+
+.exercise-finder__filter:hover {
+  border-color: var(--color-offwhite-45);
+  color: var(--color-offwhite);
+}
+
+.exercise-finder__filter--active {
+  border-color: var(--color-red-bright);
+  background: rgba(194, 42, 42, 0.1);
+  color: var(--color-offwhite);
+}
+
+/* ---- results ---- */
+
+.exercise-finder__results {
+  min-height: 120px;
+  margin-bottom: 22px;
+}
+
+.exercise-finder__empty {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--color-offwhite-45);
+  padding: 24px 0;
+  text-align: center;
+}
+
+.exercise-finder__list {
+  display: flex;
+  flex-direction: column;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.exercise-finder__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 4px;
+  border-bottom: 1px solid var(--color-graphite-line);
+  animation: exerciseItemIn 0.35s var(--ease-out);
+}
+
+@keyframes exerciseItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exercise-finder__item {
+    animation: none;
+  }
+}
+
+.exercise-finder__item:last-child {
+  border-bottom: none;
+}
+
+.exercise-finder__item-icon {
+  flex-shrink: 0;
+  color: var(--color-red-bright);
+}
+
+.exercise-finder__item-name {
+  flex: 1;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--color-offwhite);
+}
+
+.exercise-finder__item-tags {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.exercise-finder__item-part,
+.exercise-finder__item-equipment {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--color-offwhite-45);
+  border: 1px solid var(--color-graphite-line);
+  padding: 3px 7px;
+  white-space: nowrap;
+}
+
+/* ---- cta row ---- */
+
+.exercise-finder__cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-graphite-line);
+}
+
+.exercise-finder__cta-note {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--color-offwhite-45);
+}
+
+.exercise-finder__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border: 1px solid var(--color-offwhite);
+  background: var(--color-offwhite);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  transition:
+    background-color 0.35s var(--ease-out),
+    border-color 0.35s var(--ease-out),
+    color 0.35s var(--ease-out);
+}
+
+.exercise-finder__cta:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+  color: var(--color-offwhite);
+}
+
+@media (max-width: 520px) {
+  .exercise-finder__cta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .exercise-finder__cta {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,92 @@
+/* ==========================================================================
+   FLOATING ACTIONS — WhatsApp + back-to-top, fixed bottom-right. Appear
+   once the page has been scrolled a bit, rather than sitting on screen
+   from the very first frame. Sits above the navbar (500) and below the
+   mobile menu overlay (900) and any modal/lightbox (9000+), so those
+   correctly cover it when open.
+   ========================================================================== */
+
+.floating-actions {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.floating-actions__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translateY(16px) scale(0.85);
+  transition:
+    opacity 0.35s var(--ease-out),
+    transform 0.35s var(--ease-out),
+    background-color 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.floating-actions--visible .floating-actions__button {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* stagger the two buttons' entrance slightly */
+.floating-actions--visible .floating-actions__button--whatsapp {
+  transition-delay: 0.06s;
+}
+
+.floating-actions__button--top {
+  background: var(--color-near-black);
+  border: 1px solid var(--color-graphite-line);
+  color: var(--color-offwhite);
+}
+
+.floating-actions__button--top:hover {
+  background: var(--color-red-bright);
+  border-color: var(--color-red-bright);
+}
+
+.floating-actions__button--whatsapp {
+  background: #25d366;
+  color: #ffffff;
+  animation: whatsAppPulse 2.6s ease-in-out infinite;
+}
+
+.floating-actions__button--whatsapp:hover {
+  background: #1fbd5a;
+  animation-play-state: paused;
+}
+
+@keyframes whatsAppPulse {
+  0%,
+  100% {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35), 0 0 0 8px rgba(37, 211, 102, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-actions__button {
+    transition:
+      opacity 0.2s linear,
+      background-color 0.2s linear;
+    transform: none !important;
+  }
+
+  .floating-actions__button--whatsapp {
+    animation: none;
+  }
+}

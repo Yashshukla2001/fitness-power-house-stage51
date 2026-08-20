@@ -1,0 +1,214 @@
+/* ==========================================================================
+   NAVBAR — rebuilt to be minimal per explicit direction: no glass pill,
+   no heavy blur, no rounded floating SaaS container. Small text sitting
+   directly on the black canvas, nearly invisible compared to the hero.
+   ========================================================================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  display: flex;
+  justify-content: center;
+  padding: clamp(18px, 3vh, 28px) var(--edge);
+  pointer-events: none;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition:
+    background-color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out),
+    padding 0.4s var(--ease-out),
+    backdrop-filter 0.4s var(--ease-out);
+}
+
+/* Scroll-triggered state — transparent at the top of the page (blends
+   into the black canvas), transitioning to a dark translucent bar with
+   a subtle blur and hairline border once scrolled, per explicit
+   direction: no sudden jump, no heavy glass pill even in this state. */
+.navbar--scrolled {
+  padding-top: clamp(12px, 2vh, 18px);
+  padding-bottom: clamp(12px, 2vh, 18px);
+  background: rgba(5, 5, 5, 0.7);
+  border-bottom-color: var(--color-graphite-line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.navbar__pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 32px);
+  width: 100%;
+  max-width: 1320px;
+  opacity: 0;
+}
+
+/* ---- logo ---- */
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-right: auto;
+}
+
+.navbar__logo-image {
+  height: 26px;
+  width: auto;
+}
+
+.navbar__logo-word {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--color-offwhite-70);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .navbar__logo-word {
+    display: none;
+  }
+}
+
+/* ---- segmented pill switcher: nav links inside one rounded track,
+   with a sliding tinted indicator behind whichever section is active ---- */
+
+.navbar__links ul {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 5px;
+  border-radius: 999px;
+  background: rgba(242, 237, 228, 0.05);
+  border: 1px solid rgba(242, 237, 228, 0.08);
+}
+
+.navbar__indicator {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+  border-radius: 999px;
+  background: rgba(194, 42, 42, 0.18);
+  border: 1px solid rgba(194, 42, 42, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, width;
+}
+
+.navbar__chip {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--color-offwhite-70);
+  white-space: nowrap;
+  transition: color 0.3s var(--ease-out);
+}
+
+.navbar__chip:hover {
+  color: var(--color-offwhite);
+}
+
+.navbar__chip--active {
+  color: var(--color-offwhite);
+}
+
+@media (max-width: 900px) {
+  .navbar__links {
+    display: none;
+  }
+}
+
+/* ---- Join Now: solid filled pill — a real "book/join" button ---- */
+
+.navbar__join-pill {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--color-red-bright);
+  color: var(--color-offwhite);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  box-shadow: 0 4px 18px rgba(194, 42, 42, 0.3);
+  transition:
+    background-color 0.3s var(--ease-out),
+    transform 0.25s var(--ease-out),
+    box-shadow 0.3s var(--ease-out);
+}
+
+.navbar__join-pill:hover {
+  background: #d43838;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(194, 42, 42, 0.4);
+}
+
+.navbar__join-pill:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .navbar__join-pill {
+    display: none;
+  }
+}
+
+/* ---- animated hamburger: three lines morph into an X ---- */
+
+.navbar__menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.navbar__hamburger-line {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-offwhite);
+  transition:
+    transform 0.35s var(--ease-out),
+    opacity 0.25s var(--ease-out);
+}
+
+.navbar__menu-btn--open .navbar__hamburger-line:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.navbar__menu-btn--open .navbar__hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar__menu-btn--open .navbar__hamburger-line:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+@media (max-width: 900px) {
+  .navbar__menu-btn {
+    display: flex;
+  }
+}

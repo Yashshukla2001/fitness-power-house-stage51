@@ -1,0 +1,409 @@
+/* ==========================================================================
+   HERO — rebuilt from scratch (not patched) per explicit direction: one
+   continuous black canvas, no left column, no right image panel, no
+   heavy navbar, no fake stats. The athlete occupies the central visual
+   region, the giant word crosses the athlete at the vertical center of
+   the composition, a thin editorial statement sits above it, and a
+   small community module + minimal CTA + activity strip sit low in the
+   frame without competing with the central composition.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  overflow: clip;
+  isolation: isolate;
+  background: var(--color-black);
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- framed cinematic treatment: a thin inset border with small
+   viewfinder-style corner marks, echoing a letterboxed film frame. Bottom
+   inset matches the ticker's height so the frame sits above it rather
+   than cutting across it. ---- */
+
+.hero__frame {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  bottom: calc(clamp(44px, 7vh, 56px) + 16px);
+  border: 1px solid rgba(242, 237, 228, 0.1);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hero__frame-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: var(--color-offwhite-45);
+  border-style: solid;
+  border-width: 0;
+}
+
+.hero__frame-corner--tl {
+  top: -1px;
+  left: -1px;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.hero__frame-corner--tr {
+  top: -1px;
+  right: -1px;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+.hero__frame-corner--bl {
+  bottom: -1px;
+  left: -1px;
+  border-bottom-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.hero__frame-corner--br {
+  bottom: -1px;
+  right: -1px;
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+@media (max-width: 640px) {
+  .hero__frame {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: calc(clamp(44px, 7vh, 56px) + 10px);
+  }
+
+  .hero__frame-corner {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* ---- full-bleed athlete photo, edges dissolving into black ---- */
+
+/* ---- ghost brand-typography layer, sits BEHIND the athlete — a
+   second, subtler brand presence beyond the navbar. ~5% opacity,
+   discovered rather than announced. ---- */
+
+.hero__brand-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.hero__brand-layer span {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(70px, 15vw, 220px);
+  line-height: 0.86;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  opacity: 0.05;
+  white-space: nowrap;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  /* Real footage of the actual owner — center-weighted framing, verified
+     by extracting and inspecting frames across the clip's full 10s loop
+     before choosing this crop rather than guessing. The subject sits
+     centered-to-slightly-left with the head in the upper third, leaving
+     headroom for POWER without covering the face. */
+  object-position: 50% 25%;
+  will-change: transform;
+  filter: contrast(1.08) saturate(0.92) brightness(0.86);
+}
+
+@media (min-width: 980px) {
+  .hero__video {
+    object-position: 50% 20%;
+  }
+}
+
+/* ---- layered cinematic overlay stack, not one flat dark rectangle ---- */
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__overlay--base {
+  z-index: 1;
+  background: rgba(5, 5, 5, 0.32);
+}
+
+.hero__overlay--top {
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0.65) 0%, rgba(5, 5, 5, 0.15) 22%, rgba(5, 5, 5, 0) 40%);
+}
+
+.hero__overlay--sides {
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(5, 5, 5, 0.7) 0%,
+    rgba(5, 5, 5, 0.1) 20%,
+    rgba(5, 5, 5, 0) 50%,
+    rgba(5, 5, 5, 0.1) 80%,
+    rgba(5, 5, 5, 0.7) 100%
+  );
+}
+
+.hero__overlay--bottom {
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(5, 5, 5, 0) 55%, rgba(5, 5, 5, 0.55) 82%, rgba(5, 5, 5, 0.92) 100%);
+}
+
+.hero__overlay--vignette {
+  z-index: 1;
+  background: radial-gradient(ellipse 75% 70% at 50% 45%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+/* NOTE: no visible credit/attribution CSS here on purpose — the visitor
+   must never see "temporary placeholder" or stock-photo source text
+   rendered on the page itself. */
+
+/* ---- central scene: statement + giant word, crossing the athlete at
+   the vertical center of the hero, not anchored to the bottom ---- */
+
+.hero__scene {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 var(--edge);
+}
+
+.hero__statement {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(12px, 1.6vw, 16px);
+  letter-spacing: 0.1em;
+  color: var(--color-offwhite-70);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  margin-bottom: clamp(4px, 1vh, 10px);
+  opacity: 0;
+}
+
+.hero__giant-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.hero__accent-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-red-bright);
+  flex-shrink: 0;
+  animation: heroDotPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes heroDotPulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(194, 42, 42, 0.6);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 0 6px rgba(194, 42, 42, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__accent-dot {
+    animation: none;
+  }
+}
+
+.hero__giant {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(70px, 21vw, 340px);
+  line-height: 0.85;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--color-offwhite);
+  white-space: nowrap;
+  /* Thin dark offset for separation from the photo — no glow, no blur,
+     no gradient, per explicit instruction. */
+  text-shadow:
+    2px 3px 0 rgba(0, 0, 0, 0.55),
+    0 0 40px rgba(0, 0, 0, 0.35);
+}
+
+/* ---- minimal CTA: text + arrow + thin underline, no button, centered
+   now that the community module has been removed ---- */
+
+.hero__cta-row {
+  position: absolute;
+  left: 50%;
+  bottom: calc(clamp(44px, 7vh, 56px) + 28px);
+  transform: translateX(-50%);
+  z-index: 4;
+  opacity: 0;
+}
+
+.hero__cta-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 6px;
+  color: var(--color-offwhite);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.hero__cta-primary::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 34px;
+  background: var(--color-red-bright);
+  transition: width 0.35s var(--ease-out);
+}
+
+.hero__cta-primary:hover::after {
+  width: 100%;
+}
+
+.hero__cta-arrow {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.hero__cta-primary:hover .hero__cta-arrow {
+  transform: translateX(5px);
+}
+
+/* ---- bottom activity strip ---- */
+
+.hero__ticker {
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  background: rgba(5, 5, 5, 0.75);
+  border-top: 1px solid var(--color-graphite-line);
+  backdrop-filter: blur(6px);
+  height: clamp(44px, 7vh, 56px);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hero__ticker-track {
+  display: flex;
+  width: max-content;
+  animation: heroTickerScroll 30s linear infinite;
+}
+
+.hero__ticker:hover .hero__ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes heroTickerScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__ticker-track {
+    animation: none;
+  }
+}
+
+.hero__ticker-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hero__ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 36px);
+  padding: 0 clamp(20px, 3vw, 36px) 0 0;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(12px, 1.5vw, 15px);
+  letter-spacing: 0.03em;
+  color: var(--color-offwhite-70);
+  white-space: nowrap;
+}
+
+.hero__ticker-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-red-bright);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   MOBILE: word intentionally extends beyond both edges (per explicit
+   instruction — this is acceptable, not a bug); overflow-x stays
+   clipped at the section level.
+   ========================================================================== */
+
+@media (max-width: 760px) {
+  .hero__giant {
+    font-size: clamp(72px, 24vw, 160px);
+  }
+
+  .hero__cta-row {
+    bottom: calc(clamp(44px, 7vh, 56px) + 16px);
+  }
+}
+
+@media (max-width: 420px) {
+  .hero__scene {
+    padding-bottom: 96px;
+  }
+}
