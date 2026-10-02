@@ -682,13 +682,14 @@ export const packages: readonly PackageTier[] = [
 ] as const;
 
 function packageWhatsAppMessage(pkg: PackageTier): string {
-    const groupLabel =
+  const groupLabel =
     pkg.group === 'personal-training'
       ? 'Personal Training'
       : pkg.group === 'membership-cardio'
         ? 'Gym + Cardio Membership'
         : 'Gym Membership (without cardio)';
-      }
+  return `Hi Fitness Power House, I'd like to select the ${groupLabel} — ${pkg.name} package (${pkg.price}${pkg.note ? `, ${pkg.note}` : ` ${pkg.period}`}).`;
+}
 
 export { packageWhatsAppMessage };
 
