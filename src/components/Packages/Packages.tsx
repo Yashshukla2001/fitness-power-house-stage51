@@ -84,7 +84,14 @@ export function Packages({ reducedMotion }: PackagesProps) {
             className={`packages__tab ${activeGroup === 'membership' ? 'packages__tab--active' : ''}`}
             onClick={() => setActiveGroup('membership')}
           >
-            {packagesContent.membershipTabLabel}
+                       {packagesContent.membershipTabLabel}
+          </button>
+          <button
+            type="button"
+            className={`packages__tab ${activeGroup === 'membership-cardio' ? 'packages__tab--active' : ''}`}
+            onClick={() => setActiveGroup('membership-cardio')}
+          >
+            {packagesContent.cardioTabLabel}
           </button>
           <button
             type="button"

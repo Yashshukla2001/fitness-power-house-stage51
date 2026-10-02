@@ -555,13 +555,14 @@ export const packagesContent = {
   eyebrow: 'PACKAGES',
   headlineLines: ['PICK YOUR', 'STARTING POINT.'],
   paragraph: 'Straightforward pricing for gym membership and personal training.',
-  membershipTabLabel: 'GYM MEMBERSHIP',
+    membershipTabLabel: 'GYM (NO CARDIO)',
+  cardioTabLabel: 'GYM + CARDIO',
   personalTrainingTabLabel: 'PERSONAL TRAINING',
   bestValueBadge: 'BEST VALUE',
   ctaLabel: 'SELECT PACKAGE',
 } as const;
 
-export type PackageGroup = 'membership' | 'personal-training';
+export type PackageGroup = 'membership' | 'membership-cardio' | 'personal-training';
 
 export type PackageTier = {
   group: PackageGroup;
@@ -610,6 +611,40 @@ export const packages: readonly PackageTier[] = [
     features: ['Full gym floor access', 'Free weights & machines', 'Flexible hours'],
     bestValue: true,
   },
+    // ---- Gym membership WITH cardio ----
+  {
+    group: 'membership-cardio',
+    name: 'MONTHLY',
+    price: '₹1,000',
+    period: '/ month',
+    description: 'Gym + cardio, pay month to month.',
+    features: ['Full gym floor access', 'Cardio machines access', 'Free weights & machines', 'Flexible hours'],
+  },
+  {
+    group: 'membership-cardio',
+    name: '3 MONTHS',
+    price: '₹3,000',
+    period: 'one-time',
+    description: 'Three months of gym + cardio, paid up front.',
+    features: ['Full gym floor access', 'Cardio machines access', 'Free weights & machines', 'Flexible hours'],
+  },
+  {
+    group: 'membership-cardio',
+    name: '6 MONTHS',
+    price: '₹6,000',
+    period: 'one-time',
+    description: 'Six months of gym + cardio, paid up front.',
+    features: ['Full gym floor access', 'Cardio machines access', 'Free weights & machines', 'Flexible hours'],
+  },
+  {
+    group: 'membership-cardio',
+    name: '12 MONTHS',
+    price: '₹12,000',
+    period: 'one-time',
+    description: 'A full year of gym + cardio, paid up front.',
+    features: ['Full gym floor access', 'Cardio machines access', 'Free weights & machines', 'Flexible hours'],
+    bestValue: true,
+  },
   // ---- Personal training (diet plan + workout plan + gym fees + PT) ----
   {
     group: 'personal-training',
@@ -647,9 +682,13 @@ export const packages: readonly PackageTier[] = [
 ] as const;
 
 function packageWhatsAppMessage(pkg: PackageTier): string {
-  const groupLabel = pkg.group === 'personal-training' ? 'Personal Training' : 'Membership';
-  return `Hi Fitness Power House, I'd like to select the ${groupLabel} — ${pkg.name} package (${pkg.price}${pkg.note ? `, ${pkg.note}` : ` ${pkg.period}`}).`;
-}
+    const groupLabel =
+    pkg.group === 'personal-training'
+      ? 'Personal Training'
+      : pkg.group === 'membership-cardio'
+        ? 'Gym + Cardio Membership'
+        : 'Gym Membership (without cardio)';
+      }
 
 export { packageWhatsAppMessage };
 
